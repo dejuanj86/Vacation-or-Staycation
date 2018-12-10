@@ -15,6 +15,7 @@ public class Suggestion {
 	@GeneratedValue(strategy= GenerationType.IDENTITY) //this is allowing mysql to auto-increment and generate the primary key for us
 	private Integer suggestionid;
 	
+	private String email;
 	@Column(name="isvacation")
 	private boolean isVacation;
 	@Column(name="iswarm")
@@ -36,9 +37,10 @@ public class Suggestion {
 
 	}
 
-	public Suggestion(Integer suggestionid, boolean isVacation, boolean isWarm, boolean isIndoors, boolean isGambler,
-			boolean isNatural, boolean isAthletic, boolean isAnimalLover, String result) {
+	public Suggestion(Integer suggestionid, String email, boolean isVacation, boolean isWarm, boolean isIndoors,
+			boolean isGambler, boolean isNatural, boolean isAthletic, boolean isAnimalLover, String result) {
 		this.suggestionid = suggestionid;
+		this.email = email;
 		this.isVacation = isVacation;
 		this.isWarm = isWarm;
 		this.isIndoors = isIndoors;
@@ -55,6 +57,14 @@ public class Suggestion {
 
 	public void setSuggestionid(Integer suggestionid) {
 		this.suggestionid = suggestionid;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public boolean isVacation() {
@@ -123,10 +133,10 @@ public class Suggestion {
 
 	@Override
 	public String toString() {
-		return "Suggestion [suggestionid=" + suggestionid + ", isVacation=" + isVacation + ", isWarm=" + isWarm
-				+ ", isIndoors=" + isIndoors + ", isGambler=" + isGambler + ", isNatural=" + isNatural + ", isAthletic="
-				+ isAthletic + ", isAnimalLover=" + isAnimalLover + ", result=" + result + "]";
+		return "Suggestion [suggestionid=" + suggestionid + ", email=" + email + ", isVacation=" + isVacation
+				+ ", isWarm=" + isWarm + ", isIndoors=" + isIndoors + ", isGambler=" + isGambler + ", isNatural="
+				+ isNatural + ", isAthletic=" + isAthletic + ", isAnimalLover=" + isAnimalLover + ", result=" + result
+				+ "]";
 	}
-
 
 }

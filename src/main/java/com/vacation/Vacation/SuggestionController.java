@@ -33,6 +33,13 @@ public class SuggestionController {
 
 	private Suggestion s1 = new Suggestion();
 	private Tour t1 = new Tour();
+	
+	@RequestMapping("/email")
+	public ModelAndView determineEmail(@RequestParam("emailAddress") String emailAddress) {
+		s1.setEmail(emailAddress);
+		s.save(s1);
+		return new ModelAndView("vacation-or-staycation");
+	}
 
 	@RequestMapping("/vacation-or-staycation")
 	public ModelAndView determineVacationOrStaycation(
@@ -89,11 +96,11 @@ public class SuggestionController {
 			s.save(s1);
 
 			if (s1.isVacation() && s1.isWarm()) {
-				s1.setResult("Volcano Tour");
+				s1.setResult("volcano");
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() == false) {
-				s1.setResult("Zipline");
+				s1.setResult("zipline");
 				s.save(s1);
 				return new ModelAndView("budget");
 			}
@@ -102,11 +109,11 @@ public class SuggestionController {
 			s.save(s1);
 
 			if (s1.isVacation() && s1.isWarm()) {
-				s1.setResult("Theme Park"); // at an exotic destination
+				s1.setResult("exoticThemePark"); // at an exotic destination
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() == false) {
-				s1.setResult("Theme Park"); // close to home
+				s1.setResult("homeThemePark"); // close to home
 				s.save(s1);
 				return new ModelAndView("budget");
 			}
@@ -118,7 +125,7 @@ public class SuggestionController {
 	public ModelAndView determineAthleticOrNot(@RequestParam("athleticOrNot") String athleticOrNot) {
 		if (athleticOrNot.equals("Yes")) {
 			s1.setAthletic(true);
-			s1.setResult("Ski Tour");
+			s1.setResult("ski");
 			s.save(s1);
 			return new ModelAndView("budget");
 		} else if (athleticOrNot.equals("No")) {
@@ -133,13 +140,13 @@ public class SuggestionController {
 	public ModelAndView determineAnimalLover(@RequestParam("animalLover") String animalLover) {
 		if (animalLover.equals("Yes")) {
 			s1.setAnimalLover(true);
-			s1.setResult("Whale Watching Tour");
+			s1.setResult("whaleWatching");
 			s.save(s1);
 			return new ModelAndView("budget");
 
 		} else if (animalLover.equals("No")) {
 			s1.setAnimalLover(false);
-			s1.setResult("Glacier Tour");
+			s1.setResult("glacier");
 			s.save(s1);
 			return new ModelAndView("budget");
 		}
@@ -153,15 +160,15 @@ public class SuggestionController {
 			s.save(s1);
 
 			if (s1.isVacation() && s1.isWarm()) {
-				s1.setResult("Casino"); // someplace warm
+				s1.setResult("warmCasino"); // someplace warm
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() && s1.isWarm() == false) {
-				s1.setResult("Casino"); // someplace cold
+				s1.setResult("coldCasino"); // someplace cold
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() == false) {
-				s1.setResult("Casino"); // close to home
+				s1.setResult("homeCasino"); // close to home
 				s.save(s1);
 				return new ModelAndView("budget");
 			}
@@ -171,15 +178,15 @@ public class SuggestionController {
 			s.save(s1);
 
 			if (s1.isVacation() && s1.isWarm()) {
-				s1.setResult("Spa"); // someplace warm
+				s1.setResult("warmSpa"); // someplace warm
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() && s1.isWarm() == false) {
-				s1.setResult("Spa"); // someplace cold
+				s1.setResult("coldSpa"); // someplace cold
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() == false) {
-				s1.setResult("Spa"); // close to home
+				s1.setResult("homeSpa"); // close to home
 				s.save(s1);
 				return new ModelAndView("budget");
 			}

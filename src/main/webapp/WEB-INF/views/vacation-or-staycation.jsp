@@ -11,10 +11,10 @@
 </head>
 <body>
 
-	<h1>Hi there! What's your email?</h1>
-	<form action="email">		
-		<input type="text" name="emailAddress" placeholder="email">
-		<input type="submit" value="Go!"><br>
+	<h1>Vacation or Staycation?</h1>
+	<form action="vacation-or-staycation">
+			<input type="submit" name="vacationOrStaycation" value="Vacation"><br>
+			<input type="submit" name="vacationOrStaycation" value="Staycation"><br>
 	</form>
 
 </body>
