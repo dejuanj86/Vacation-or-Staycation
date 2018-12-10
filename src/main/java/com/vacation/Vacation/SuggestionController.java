@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.vacation.Vacation.entity.Suggestion;
-import com.vacation.Vacation.entity.Tour;
 import com.vacation.Vacation.entity.YelpSearch;
 import com.vacation.Vacation.repo.SuggestionRepository;
 import com.vacation.Vacation.repo.TourRepository;
@@ -32,8 +31,8 @@ public class SuggestionController {
 	TourRepository t;
 
 	private Suggestion s1 = new Suggestion();
-	private Tour t1 = new Tour();
-	
+	private Integer tourId;
+
 	@RequestMapping("/email")
 	public ModelAndView determineEmail(@RequestParam("emailAddress") String emailAddress) {
 		s1.setEmail(emailAddress);
@@ -100,7 +99,7 @@ public class SuggestionController {
 				s.save(s1);
 				return new ModelAndView("budget");
 			} else if (s1.isVacation() == false) {
-				s1.setResult("zipline");
+				s1.setResult("homeZipLine");
 				s.save(s1);
 				return new ModelAndView("budget");
 			}
@@ -195,22 +194,73 @@ public class SuggestionController {
 	}
 
 	@RequestMapping("/budget")
-	public ModelAndView searchStaycation(@RequestParam("price") String price) {
+	public ModelAndView searchStaycation(@RequestParam("priceLevel") String priceLevel) {
 
-		if (price.equals("$")) {
-			price = "1";
+		String hotel = "";
+		String attraction = "";
+		String location = "";
+		Double price = 0.0;
+
+		if (s1.getResult().equals("coldCasino")) {
+			tourId = 1;
+		} else if (s1.getResult().equals("warmCasino")) {
+			tourId = 2;
+		} else if (s1.getResult().equals("coldSpa")) {
+			tourId = 3;
+		} else if (s1.getResult().equals("warmSpa")) {
+			tourId = 4;
+		} else if (s1.getResult().equals("exoticThemePark")) {
+			tourId = 5;
+		} else if (s1.getResult().equals("volcano")) {
+			tourId = 6;
+		} else if (s1.getResult().equals("ski")) {
+			tourId = 7;
+		} else if (s1.getResult().equals("whaleWatching")) {
+			tourId = 8;
+		} else if (s1.getResult().equals("glacier")) {
+			tourId = 9;
+		} else if (s1.getResult().equals("homeCasino")) {
+			tourId = 10;
+		} else if (s1.getResult().equals("homeSpa")) {
+			tourId = 11;
+		} else if (s1.getResult().equals("homeThemePark")) {
+			tourId = 12;
+		} else if (s1.getResult().equals("homeZipLine")) {
+			tourId = 13;
 		}
-		if (price.equals("$$")) {
-			price = "2";
-		}
-		if (price.equals("$$$")) {
-			price = "3";
-		}
-		if (price.equals("$$$$")) {
-			price = "4";
+		
+		
+		
+		
+		
+		
+		
+		
+
+		if (priceLevel.equals("$")) {
+			// price = "1";
+			hotel = t.findById(tourId).orElse(null).getHotel1();
+			price = t.findById(tourId).orElse(null).getPrice();
+		} else if (priceLevel.equals("$$")) {
+			// price = "2";
+			hotel = t.findById(tourId).orElse(null).getHotel2();
+			price = (t.findById(tourId).orElse(null).getPrice()) * 1.3;
+		} else if (priceLevel.equals("$$$")) {
+			// price = "3";
+			hotel = t.findById(tourId).orElse(null).getHotel3();
+			price = (t.findById(tourId).orElse(null).getPrice()) * 1.5;
+			System.out.println(hotel);
+			System.out.println(price);
+		} else if (priceLevel.equals("$$$$")) {
+			// price = "4";
+			hotel = t.findById(tourId).orElse(null).getHotel4();
+			price = (t.findById(tourId).orElse(null).getPrice()) * 1.7;
+
 		}
 
-		String term = s1.getResult();
+		location = t.findById(tourId).orElse(null).getCity();
+		attraction = t.findById(tourId).orElse(null).getAttraction();
+		System.out.println(location);
 
 		RestTemplate rt = new RestTemplate();
 
@@ -219,32 +269,41 @@ public class SuggestionController {
 		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
 		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-		if (s1.isVacation() == false) {
-			String location = "Detroit, MI";
+		String url1 = "https://api.yelp.com/v3/businesses/search?term=" + hotel + "&location=" + location;
+		String url2 = "https://api.yelp.com/v3/businesses/search?term=" + attraction + "&location=" + location;
+		ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
+		ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);
 
-			String url1 = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location + "&price="
-					+ price;
-			ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
-			YelpSearch yelpSearch1 = response1.getBody();
-			return new ModelAndView("suggestion-result", "yelpSearch", yelpSearch1.getBusinesses());
-		}
+		YelpSearch yelpSearch1 = response1.getBody();
+		YelpSearch yelpSearch2 = response2.getBody();
+
+		if (s1.isVacation()) {
+			ModelAndView mv = new ModelAndView("vacation-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
+			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
+			mv.addObject("tourOption", t.findById(tourId).orElse(null));
+			mv.addObject("adjustedPrice", price);
+			return mv;
+		} else if (s1.isVacation() == false) {
+			ModelAndView mv = new ModelAndView("staycation-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
+			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
+			mv.addObject("tourOption", t.findById(tourId).orElse(null));
+			mv.addObject("adjustedPrice", price);
+			return mv;
+		
+
 //		} else if (s1.isVacation()) {
 //			
-//			String url1 = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location1 + "&price=" + price;
-//			String url2 = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location2 + "&price=" + price;
-//			String url3 = "https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location3 + "&price=" + price;
+//			String url1 = "https://api.yelp.com/v3/businesses/search?term=" + term1 + "&location=" + location;
+//			String url2 = "https://api.yelp.com/v3/businesses/search?term=" + term2 + "&location=" + location;
 //
 //			ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
-//			ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);		
-//			ResponseEntity<YelpSearch> response3 = rt.exchange(url3, HttpMethod.GET, entity, YelpSearch.class);		
+//			ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);	
 //
 //			YelpSearch yelpSearch1 = response1.getBody();
 //			YelpSearch yelpSearch2 = response2.getBody();
-//			YelpSearch yelpSearch3 = response2.getBody();
 //
-//			ModelAndView mv = new ModelAndView("yelp-result", "yelpSearch1", yelpSearch1.getBusinesses());
-//			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses());
-//			mv.addObject("yelpSearch3", yelpSearch3.getBusinesses());
+//			ModelAndView mv = new ModelAndView("yelp-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
+//			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
 //
 //			
 //	return mv;
@@ -252,7 +311,9 @@ public class SuggestionController {
 //			
 //			
 //		}
-		
-			return new ModelAndView("error", "error", "Help!");
+
+	}
+		return new ModelAndView("error", "error", "Help!");
 	}
 }
+

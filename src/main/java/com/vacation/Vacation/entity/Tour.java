@@ -15,8 +15,6 @@ public class Tour {
 	@GeneratedValue(strategy= GenerationType.IDENTITY) //this is allowing mysql to auto-increment and generate the primary key for us
 	private Integer tourid;
 
-	private String category;
-	private String climate;
 	private String name;
 	private String city;
 	@Column(name="departuredate")
@@ -26,28 +24,43 @@ public class Tour {
 	@Column(name="destinationairport")
 	private String destinationAirport;
 	private String airline;
-	@Column(name="flightnum")
-	private String flightNum;
+	@Column(name="outboundflightnum")
+	private String outboundFlightNum;
+	@Column(name="inboundflightnum")
+	private String inboundFlightNum;
 	@Column(name="flightduration")
 	private String flightduration;
+	private Double price;
+	private String hotel1;
+	private String hotel2;
+	private String hotel3;
+	private String hotel4;
+	private String attraction;
 	
 	public Tour() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tour(Integer tourid, String category, String climate, String name, String city, String departureDate,
-			String returnDate, String destinationAirport, String airline, String flightNum, String flightduration) {
+	public Tour(Integer tourid, String name, String city, String departureDate, String returnDate,
+			String destinationAirport, String airline, String outboundFlightNum, String inboundFlightNum,
+			String flightduration, Double price, String hotel1, String hotel2, String hotel3, String hotel4,
+			String attraction) {
 		this.tourid = tourid;
-		this.category = category;
-		this.climate = climate;
 		this.name = name;
 		this.city = city;
 		this.departureDate = departureDate;
 		this.returnDate = returnDate;
 		this.destinationAirport = destinationAirport;
 		this.airline = airline;
-		this.flightNum = flightNum;
+		this.outboundFlightNum = outboundFlightNum;
+		this.inboundFlightNum = inboundFlightNum;
 		this.flightduration = flightduration;
+		this.price = price;
+		this.hotel1 = hotel1;
+		this.hotel2 = hotel2;
+		this.hotel3 = hotel3;
+		this.hotel4 = hotel4;
+		this.attraction = attraction;
 	}
 
 	public Integer getTourid() {
@@ -56,22 +69,6 @@ public class Tour {
 
 	public void setTourid(Integer tourid) {
 		this.tourid = tourid;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public String getClimate() {
-		return climate;
-	}
-
-	public void setClimate(String climate) {
-		this.climate = climate;
 	}
 
 	public String getName() {
@@ -122,12 +119,20 @@ public class Tour {
 		this.airline = airline;
 	}
 
-	public String getFlightNum() {
-		return flightNum;
+	public String getOutboundFlightNum() {
+		return outboundFlightNum;
 	}
 
-	public void setFlightNum(String flightNum) {
-		this.flightNum = flightNum;
+	public void setOutboundFlightNum(String outboundFlightNum) {
+		this.outboundFlightNum = outboundFlightNum;
+	}
+
+	public String getInboundFlightNum() {
+		return inboundFlightNum;
+	}
+
+	public void setInboundFlightNum(String inboundFlightNum) {
+		this.inboundFlightNum = inboundFlightNum;
 	}
 
 	public String getFlightduration() {
@@ -138,13 +143,61 @@ public class Tour {
 		this.flightduration = flightduration;
 	}
 
-	@Override
-	public String toString() {
-		return "Tour [tourid=" + tourid + ", category=" + category + ", climate=" + climate + ", name=" + name
-				+ ", city=" + city + ", departureDate=" + departureDate + ", returnDate=" + returnDate
-				+ ", destinationAirport=" + destinationAirport + ", airline=" + airline + ", flightNum=" + flightNum
-				+ ", flightduration=" + flightduration + "]";
+	public Double getPrice() {
+		return price;
 	}
 
-	
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getHotel1() {
+		return hotel1;
+	}
+
+	public void setHotel1(String hotel1) {
+		this.hotel1 = hotel1;
+	}
+
+	public String getHotel2() {
+		return hotel2;
+	}
+
+	public void setHotel2(String hotel2) {
+		this.hotel2 = hotel2;
+	}
+
+	public String getHotel3() {
+		return hotel3;
+	}
+
+	public void setHotel3(String hotel3) {
+		this.hotel3 = hotel3;
+	}
+
+	public String getHotel4() {
+		return hotel4;
+	}
+
+	public void setHotel4(String hotel4) {
+		this.hotel4 = hotel4;
+	}
+
+	public String getAttraction() {
+		return attraction;
+	}
+
+	public void setAttraction(String attraction) {
+		this.attraction = attraction;
+	}
+
+	@Override
+	public String toString() {
+		return "Tour [tourid=" + tourid + ", name=" + name + ", city=" + city + ", departureDate=" + departureDate
+				+ ", returnDate=" + returnDate + ", destinationAirport=" + destinationAirport + ", airline=" + airline
+				+ ", outboundFlightNum=" + outboundFlightNum + ", inboundFlightNum=" + inboundFlightNum
+				+ ", flightduration=" + flightduration + ", price=" + price + ", hotel1=" + hotel1 + ", hotel2="
+				+ hotel2 + ", hotel3=" + hotel3 + ", hotel4=" + hotel4 + ", attraction=" + attraction + "]";
+	}
+
 }

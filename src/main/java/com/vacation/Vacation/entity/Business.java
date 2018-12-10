@@ -12,7 +12,7 @@ public class Business {
 	private boolean is_closed;
 	private String name;
 	private String url;
-	private String imageUrl;
+	private String image_url;
 	private Location location;
 	
 	public Business() {
@@ -20,14 +20,14 @@ public class Business {
 	}
 
 	public Business(String rating, String price, String phone, boolean is_closed, String name, String url,
-			String imageUrl, Location location) {
+			String image_url, Location location) {
 		this.rating = rating;
 		this.price = price;
 		this.phone = phone;
 		this.is_closed = is_closed;
 		this.name = name;
 		this.url = url;
-		this.imageUrl = imageUrl;
+		this.image_url = image_url;
 		this.location = location;
 	}
 
@@ -79,12 +79,12 @@ public class Business {
 		this.url = url;
 	}
 
-	public String getImageUrl() {
-		return imageUrl;
+	public String getImage_url() {
+		return image_url;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
 	}
 
 	public Location getLocation() {
@@ -98,9 +98,8 @@ public class Business {
 	@Override
 	public String toString() {
 		return "Business [rating=" + rating + ", price=" + price + ", phone=" + phone + ", is_closed=" + is_closed
-				+ ", name=" + name + ", url=" + url + ", imageUrl=" + imageUrl + ", location=" + location + "]";
+				+ ", name=" + name + ", url=" + url + ", image_url=" + image_url + ", location=" + location + "]";
 	}
-	
-	
+
 }
 

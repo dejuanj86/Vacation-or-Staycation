@@ -14,10 +14,10 @@
 	<h1>What is your budget level?</h1>
 	<form action="budget">
 	
-	<input type="submit" name="price" value="$"><br>
-	<input type="submit" name="price" value="$$"><br>
-	<input type="submit" name="price" value="$$$"><br>
-	<input type="submit" name="price" value="$$$$"><br>
+	<input type="submit" name="priceLevel" value="$"><br>
+	<input type="submit" name="priceLevel" value="$$"><br>
+	<input type="submit" name="priceLevel" value="$$$"><br>
+	<input type="submit" name="priceLevel" value="$$$$"><br>
 
 	</form>
 

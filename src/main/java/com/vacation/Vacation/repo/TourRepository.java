@@ -4,8 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.vacation.Vacation.entity.Tour;
 
-public interface TourRepository extends JpaRepository<Tour, String>{
+public interface TourRepository extends JpaRepository<Tour, Integer>{
 
-	Tour findByCategory(String category);
-	Tour findByClimate(String climate);
+	Tour findByTourid(Integer tourId);
+
 }
