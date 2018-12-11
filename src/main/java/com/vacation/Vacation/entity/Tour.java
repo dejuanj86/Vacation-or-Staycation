@@ -29,7 +29,7 @@ public class Tour {
 	@Column(name="inboundflightnum")
 	private String inboundFlightNum;
 	@Column(name="flightduration")
-	private String flightduration;
+	private Double flightDuration;
 	private Double price;
 	private String hotel1;
 	private String hotel2;
@@ -43,7 +43,7 @@ public class Tour {
 
 	public Tour(Integer tourid, String name, String city, String departureDate, String returnDate,
 			String destinationAirport, String airline, String outboundFlightNum, String inboundFlightNum,
-			String flightduration, Double price, String hotel1, String hotel2, String hotel3, String hotel4,
+			Double flightDuration, Double price, String hotel1, String hotel2, String hotel3, String hotel4,
 			String attraction) {
 		this.tourid = tourid;
 		this.name = name;
@@ -54,7 +54,7 @@ public class Tour {
 		this.airline = airline;
 		this.outboundFlightNum = outboundFlightNum;
 		this.inboundFlightNum = inboundFlightNum;
-		this.flightduration = flightduration;
+		this.flightDuration = flightDuration;
 		this.price = price;
 		this.hotel1 = hotel1;
 		this.hotel2 = hotel2;
@@ -135,12 +135,12 @@ public class Tour {
 		this.inboundFlightNum = inboundFlightNum;
 	}
 
-	public String getFlightduration() {
-		return flightduration;
+	public Double getFlightDuration() {
+		return flightDuration;
 	}
 
-	public void setFlightduration(String flightduration) {
-		this.flightduration = flightduration;
+	public void setFlightDuration(Double flightDuration) {
+		this.flightDuration = flightDuration;
 	}
 
 	public Double getPrice() {
@@ -196,7 +196,7 @@ public class Tour {
 		return "Tour [tourid=" + tourid + ", name=" + name + ", city=" + city + ", departureDate=" + departureDate
 				+ ", returnDate=" + returnDate + ", destinationAirport=" + destinationAirport + ", airline=" + airline
 				+ ", outboundFlightNum=" + outboundFlightNum + ", inboundFlightNum=" + inboundFlightNum
-				+ ", flightduration=" + flightduration + ", price=" + price + ", hotel1=" + hotel1 + ", hotel2="
+				+ ", flightDuration=" + flightDuration + ", price=" + price + ", hotel1=" + hotel1 + ", hotel2="
 				+ hotel2 + ", hotel3=" + hotel3 + ", hotel4=" + hotel4 + ", attraction=" + attraction + "]";
 	}
 

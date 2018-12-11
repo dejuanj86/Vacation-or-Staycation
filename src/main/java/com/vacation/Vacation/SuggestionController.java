@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.vacation.Vacation.entity.Customer;
 import com.vacation.Vacation.entity.Suggestion;
 import com.vacation.Vacation.entity.YelpSearch;
+import com.vacation.Vacation.repo.CustomerRepository;
 import com.vacation.Vacation.repo.SuggestionRepository;
 import com.vacation.Vacation.repo.TourRepository;
 
@@ -30,15 +32,24 @@ public class SuggestionController {
 	@Autowired
 	TourRepository t;
 
-	private Suggestion s1 = new Suggestion();
-	private Integer tourId;
+	@Autowired
+	CustomerRepository c;
 
-	@RequestMapping("/email")
-	public ModelAndView determineEmail(@RequestParam("emailAddress") String emailAddress) {
-		s1.setEmail(emailAddress);
-		s.save(s1);
-		return new ModelAndView("vacation-or-staycation");
-	}
+	private Suggestion s1 = new Suggestion();
+	private Customer c1 = new Customer();
+	private Integer tourId;
+	private String hotel = "";
+	private String attraction = "";
+	private String location = "";
+	private Double price = 0.0;
+	private Double businessClassPrice = 0.0;
+
+//	@RequestMapping("/email")
+//	public ModelAndView determineEmail(@RequestParam("emailAddress") String emailAddress) {
+//		s1.setEmail(emailAddress);
+//		s.save(s1);
+//		return new ModelAndView("vacation-or-staycation");
+//	}
 
 	@RequestMapping("/vacation-or-staycation")
 	public ModelAndView determineVacationOrStaycation(
@@ -194,12 +205,7 @@ public class SuggestionController {
 	}
 
 	@RequestMapping("/budget")
-	public ModelAndView searchStaycation(@RequestParam("priceLevel") String priceLevel) {
-
-		String hotel = "";
-		String attraction = "";
-		String location = "";
-		Double price = 0.0;
+	public ModelAndView searchTrip(@RequestParam("priceLevel") String priceLevel) {
 
 		if (s1.getResult().equals("coldCasino")) {
 			tourId = 1;
@@ -228,31 +234,19 @@ public class SuggestionController {
 		} else if (s1.getResult().equals("homeZipLine")) {
 			tourId = 13;
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 
 		if (priceLevel.equals("$")) {
-			// price = "1";
 			hotel = t.findById(tourId).orElse(null).getHotel1();
 			price = t.findById(tourId).orElse(null).getPrice();
 		} else if (priceLevel.equals("$$")) {
-			// price = "2";
 			hotel = t.findById(tourId).orElse(null).getHotel2();
 			price = (t.findById(tourId).orElse(null).getPrice()) * 1.3;
 		} else if (priceLevel.equals("$$$")) {
-			// price = "3";
 			hotel = t.findById(tourId).orElse(null).getHotel3();
 			price = (t.findById(tourId).orElse(null).getPrice()) * 1.5;
 			System.out.println(hotel);
 			System.out.println(price);
 		} else if (priceLevel.equals("$$$$")) {
-			// price = "4";
 			hotel = t.findById(tourId).orElse(null).getHotel4();
 			price = (t.findById(tourId).orElse(null).getPrice()) * 1.7;
 
@@ -260,7 +254,6 @@ public class SuggestionController {
 
 		location = t.findById(tourId).orElse(null).getCity();
 		attraction = t.findById(tourId).orElse(null).getAttraction();
-		System.out.println(location);
 
 		RestTemplate rt = new RestTemplate();
 
@@ -278,42 +271,143 @@ public class SuggestionController {
 		YelpSearch yelpSearch2 = response2.getBody();
 
 		if (s1.isVacation()) {
+			businessClassPrice = (((t.findById(tourId).orElse(null).getFlightDuration()) / 200) + 1) * price;
 			ModelAndView mv = new ModelAndView("vacation-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
 			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
 			mv.addObject("tourOption", t.findById(tourId).orElse(null));
-			mv.addObject("adjustedPrice", price);
+			mv.addObject("adjustedPrice", String.format("%.2f", price));
+			mv.addObject("businessClass", String.format("%.2f", businessClassPrice));
 			return mv;
 		} else if (s1.isVacation() == false) {
 			ModelAndView mv = new ModelAndView("staycation-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
 			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
 			mv.addObject("tourOption", t.findById(tourId).orElse(null));
-			mv.addObject("adjustedPrice", price);
+			mv.addObject("adjustedPrice", String.format("%.2f", price));
 			return mv;
-		
+		}
 
-//		} else if (s1.isVacation()) {
-//			
-//			String url1 = "https://api.yelp.com/v3/businesses/search?term=" + term1 + "&location=" + location;
-//			String url2 = "https://api.yelp.com/v3/businesses/search?term=" + term2 + "&location=" + location;
-//
-//			ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
-//			ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);	
-//
-//			YelpSearch yelpSearch1 = response1.getBody();
-//			YelpSearch yelpSearch2 = response2.getBody();
-//
-//			ModelAndView mv = new ModelAndView("yelp-result", "yelpSearch1", yelpSearch1.getBusinesses().get(0));
-//			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
-//
-//			
-//	return mv;
-//			
-//			
-//			
-//		}
-
-	}
 		return new ModelAndView("error", "error", "Help!");
 	}
-}
 
+	@RequestMapping("/vacation-result")
+	public ModelAndView determineVacationSelection(@RequestParam("passengerNum") Integer passengerNum,
+			@RequestParam("resultSelection") String resultSelection, @RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName, @RequestParam("phone") String phone,
+			@RequestParam("email") String email) {
+
+		RestTemplate rt = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + yelpKey);
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		String url1 = "https://api.yelp.com/v3/businesses/search?term=" + hotel + "&location=" + location;
+		String url2 = "https://api.yelp.com/v3/businesses/search?term=" + attraction + "&location=" + location;
+		ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
+		ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);
+		YelpSearch yelpSearch1 = response1.getBody();
+		YelpSearch yelpSearch2 = response2.getBody();
+
+		if (resultSelection.equals("Book My Hotel and Attraction with Economy Class Airfare")) {
+			c1.setFirstName(firstName);
+			c1.setLastName(lastName);
+			c1.setPhone(phone);
+			c1.setEmail(email);
+			c.save(c1);
+
+			price = price * passengerNum;
+
+			ModelAndView mv = new ModelAndView("vacation-booking-confirmation", "yelpSearch1",
+					yelpSearch1.getBusinesses().get(0));
+			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
+			mv.addObject("tourOption", t.findById(tourId).orElse(null));
+			mv.addObject("adjustedPrice", String.format("%.2f", price));
+			mv.addObject("customerInfo", c1);
+
+			return mv;
+		} else if (resultSelection.equals("Book My Hotel and Attraction with Business Class Airfare")) {
+			c1.setFirstName(firstName);
+			c1.setLastName(lastName);
+			c1.setPhone(phone);
+			c1.setEmail(email);
+			c.save(c1);
+
+			price = businessClassPrice * passengerNum;
+
+			ModelAndView mv = new ModelAndView("vacation-booking-confirmation", "yelpSearch1",
+					yelpSearch1.getBusinesses().get(0));
+			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
+			mv.addObject("tourOption", t.findById(tourId).orElse(null));
+			mv.addObject("adjustedPrice", String.format("%.2f", price));
+			mv.addObject("customerInfo", c1);
+
+			return mv;
+		} else if (resultSelection.equals("Back to the Beginning")) {
+			return new ModelAndView("/index");
+		}
+		return new ModelAndView("error", "error", "Help!");
+	}
+
+	@RequestMapping("/staycation-result")
+	public ModelAndView determineStaycationSelection(@RequestParam("passengerNum") Integer passengerNum,
+			@RequestParam("resultSelection") String resultSelection, @RequestParam("firstName") String firstName,
+			@RequestParam("lastName") String lastName, @RequestParam("phone") String phone,
+			@RequestParam("email") String email) {
+
+		RestTemplate rt = new RestTemplate();
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", "Bearer " + yelpKey);
+		headers.add("Accept", MediaType.APPLICATION_JSON_VALUE);
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
+		String url1 = "https://api.yelp.com/v3/businesses/search?term=" + hotel + "&location=" + location;
+		String url2 = "https://api.yelp.com/v3/businesses/search?term=" + attraction + "&location=" + location;
+		ResponseEntity<YelpSearch> response1 = rt.exchange(url1, HttpMethod.GET, entity, YelpSearch.class);
+		ResponseEntity<YelpSearch> response2 = rt.exchange(url2, HttpMethod.GET, entity, YelpSearch.class);
+		YelpSearch yelpSearch1 = response1.getBody();
+		YelpSearch yelpSearch2 = response2.getBody();
+
+		if (resultSelection.equals("Book My Hotel and Attraction")) {
+			c1.setFirstName(firstName);
+			c1.setLastName(lastName);
+			c1.setPhone(phone);
+			c1.setEmail(email);
+			c.save(c1);
+
+			price = price * passengerNum;
+
+			ModelAndView mv = new ModelAndView("staycation-booking-confirmation", "yelpSearch1",
+					yelpSearch1.getBusinesses().get(0));
+			mv.addObject("yelpSearch2", yelpSearch2.getBusinesses().get(0));
+			mv.addObject("tourOption", t.findById(tourId).orElse(null));
+			mv.addObject("adjustedPrice", String.format("%.2f", price));
+			mv.addObject("customerInfo", c1);
+
+			return mv;
+
+		} else if (resultSelection.equals("Back to the Beginning")) {
+			return new ModelAndView("/index");
+		}
+		return new ModelAndView("error", "error", "Help!");
+	}
+
+	@RequestMapping("/vacation-booking-confirmation")
+	public ModelAndView returnVacationHome(@RequestParam("returnHome") String returnHome){
+		if(returnHome.equals("Back to the Beginning")) {
+			return new ModelAndView("/index");
+		} else {
+			return new ModelAndView("error", "error", "Help!");
+		}
+	}
+	
+	@RequestMapping("/staycation-booking-confirmation")
+	public ModelAndView returnStaycationHome(@RequestParam("returnHome") String returnHome){
+		if(returnHome.equals("Back to the Beginning")) {
+			return new ModelAndView("/index");
+		} else {
+			return new ModelAndView("error", "error", "Help!");
+		}
+	}
+	
+	
+}
