@@ -52,15 +52,15 @@
 
 
 
-                       	Number of happy travelers: <input type="number" name="passengerNum" min="1" max="100" value="1"><br><br>
+                       	Number of happy travelers: <input type="number" name="passengerNum" required min="1" max="100" value="1"><br><br>
                        	
                        	
                        	
                        	Primary Traveler Contact Information:
-                        <input type="text" name="firstName" placeholder="First Name"> <br>
-                        <input type="text" name="lastName" placeholder="Last Name"> <br>
-                        <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex. 555-555-5555"> <br>
-                        <input type="email" name="email" placeholder="email"> <br>
+                        <input type="text" name="firstName" required placeholder="First Name"> <br>
+                        <input type="text" name="lastName" required placeholder="Last Name"> <br>
+                        <input type="tel" name="phone" required pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="ex. 555-555-5555"> <br>
+                        <input type="email" name="email" required placeholder="email"> <br>
                        	
                        	
 						<input type="submit" name="resultSelection" value="Book My Hotel and Attraction"><br>

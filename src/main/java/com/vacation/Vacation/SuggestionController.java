@@ -44,13 +44,6 @@ public class SuggestionController {
 	private Double price = 0.0;
 	private Double businessClassPrice = 0.0;
 
-//	@RequestMapping("/email")
-//	public ModelAndView determineEmail(@RequestParam("emailAddress") String emailAddress) {
-//		s1.setEmail(emailAddress);
-//		s.save(s1);
-//		return new ModelAndView("vacation-or-staycation");
-//	}
-
 	@RequestMapping("/vacation-or-staycation")
 	public ModelAndView determineVacationOrStaycation(
 			@RequestParam("vacationOrStaycation") String vacationOrStaycation) {
@@ -392,22 +385,21 @@ public class SuggestionController {
 	}
 
 	@RequestMapping("/vacation-booking-confirmation")
-	public ModelAndView returnVacationHome(@RequestParam("returnHome") String returnHome){
-		if(returnHome.equals("Back to the Beginning")) {
+	public ModelAndView returnVacationHome(@RequestParam("returnHome") String returnHome) {
+		if (returnHome.equals("Back to the Beginning")) {
 			return new ModelAndView("/index");
 		} else {
 			return new ModelAndView("error", "error", "Help!");
 		}
 	}
-	
+
 	@RequestMapping("/staycation-booking-confirmation")
-	public ModelAndView returnStaycationHome(@RequestParam("returnHome") String returnHome){
-		if(returnHome.equals("Back to the Beginning")) {
+	public ModelAndView returnStaycationHome(@RequestParam("returnHome") String returnHome) {
+		if (returnHome.equals("Back to the Beginning")) {
 			return new ModelAndView("/index");
 		} else {
 			return new ModelAndView("error", "error", "Help!");
 		}
 	}
-	
-	
+
 }
