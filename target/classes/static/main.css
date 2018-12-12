@@ -1,0 +1,24 @@
+@charset "UTF-8";
+
+
+Body{
+	text-align: center;
+}
+
+#vacation{
+	background-image: url("https://images.unsplash.com/photo-1528670549514-e64a8478b57d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80");	
+}
+
+#staycation{
+	background-image: url("https://i.imgur.com/sGOITWN.jpg");
+}
+
+.button1 {
+	border-radius: 50%;
+	font-size: 7em;
+}
+
+.button2 {
+	border-radius: 50%;
+	font-size: 7em;
+}

@@ -3,21 +3,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/sketchy/bootstrap.min.css" />
-
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<!-- css -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800" rel="stylesheet" media="screen">
+	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	<link href="/css/style.css" rel="stylesheet" media="screen">
+	<link href="/color/default.css" rel="stylesheet" media="screen">
+	<link href="/css/app-style.css" rel="stylesheet" media="screen">
 </head>
-<body>
-
+<body id=app-body>
 	<h1>Natural or Man-Made?</h1>
-	<form action="natural-or-man-made">
-	
-	<input type="submit" name="naturalOrManMade" value="Natural"><br>
-	<input type="submit" name="naturalOrManMade" value="Man-Made"><br>
-
-	</form>
-
+	<div class="container">
+		<form action="natural-or-man-made">
+			<div class="row">
+				<div class="col-lg-6">
+					<img id="suggestion-wp" src="/img/decision_tree/natural.jpg">
+					<input id="button1" class="btn btn-lg" type="submit" name="naturalOrManMade" value="Natural">
+				</div>
+				<div class="col-lg-6">
+					<img id="suggestion-wp" src="/img/decision_tree/man-made.jpg">
+					<input id="button1" class="btn btn-lg" type="submit" name="naturalOrManMade" value="Man-Made" >
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>
