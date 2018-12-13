@@ -21,7 +21,7 @@
 <body id="app-body">
 	<img id="logo-md" src="img/logo.png">
 	<div class="container col-lg-12" id="">
-		<h3>Lets get lost!</h3>
+		<h3>Let's get lost!</h3>
 		<div id="eachHotel">
 		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
 			<thead class="thead">
