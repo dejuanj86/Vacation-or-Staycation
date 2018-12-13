@@ -26,10 +26,14 @@
 		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
 			<thead class="thead">
 				<th>Your Tour</th>
+				<th>Leaving on</th>
+				<th>Returning on</th>
 			</thead>
 			<tbody>
 				<tr>
 					<td><h3>${tourOption.name}</h3></td>
+					<td>${tourOption.departureDate}</td>
+					<td>${tourOption.returnDate}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -80,8 +84,8 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>${yelpSearch2.name}<br></td>
-					<td>${yelpSearch2.location.address1}<br></td>
+					<td>${yelpSearch2.name}</td>
+					<td>${yelpSearch2.location.address1}</td>
 					<td>${yelpSearch2.location.city}, </td>
 					<td>${yelpSearch2.location.state} </td>
 					<td>${yelpSearch2.location.zip_code}</td>

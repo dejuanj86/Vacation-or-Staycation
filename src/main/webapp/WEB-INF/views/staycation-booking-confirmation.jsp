@@ -48,10 +48,14 @@
 		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
 			<thead class="thead">
 				<th>Tour Name</th>
+				<th>Leaving on</th>
+				<th>Returning on</th>
 			</thead>
 			<tbody>
 				<tr>
-					<td><h1>${tourOption.name}</h1></td>
+					<td><h3>${tourOption.name}</h3></td>
+					<td>${tourOption.departureDate}</td>
+					<td>${tourOption.returnDate}</td>
 				</tr>
 			</tbody>
 		</table>
