@@ -1,73 +1,168 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.3/sketchy/bootstrap.min.css" />
-
+  	<title>Vacation Booking Confirmation - Vacation or Staycation</title>
+  	<meta charset="utf-8" />
+  	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  	<!-- Bootstrap 4 -->
+  	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  	<!-- css -->
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800" rel="stylesheet" media="screen">
+	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  	<link href="/css/style.css" rel="stylesheet" media="screen">
+  	<link href="/color/default.css" rel="stylesheet" media="screen">
+  	<link href="/css/app-style.css" rel="stylesheet" media="screen">
 </head>
-<body>
-
-   <div class="column" id="staycation">
-    
-    			<h3>Your Final Booking Information</h3>
-                    <div id="eachHotel">
-                    	<form action="vacation-booking-confirmation">
-                    <tr>
-                    	<td><h5>Primary Booking Contact</h5><br></td>
-                       	<td>${customerInfo.firstName} </td>
-                    	<td>${customerInfo.lastName}<br></td>
- 						<td>${customerInfo.phone}<br></td> 
- 						<td>${customerInfo.email}<br><br></td>                      
-
-                    
-                    	<td><h1>${tourOption.name}</h1><br></td>
-               
-                    	<td><h5>Your Flight</h5></td>
-                       	<td>From Detroit (DTW) to ${tourOption.destinationAirport}<br></td>
-                    	<td>Leaving on ${tourOption.departureDate}<br></td>
- 						<td>${tourOption.airline}</td> 
- 						<td>${tourOption.outboundFlightNum}<br><br></td>   
- 						              
-                       	<td>Returning on ${tourOption.returnDate}<br></td>
-                       	<td>${tourOption.airline}</td>
-                       	<td>${tourOption.inboundFlightNum}<br></td>
-
-                   
-                    </tr>
-                    <tr>
-                    	<td><h5>Your Hotel</h5></td>
-                        <td>${yelpSearch1.name}<br></td>
-                        <td>${yelpSearch1.location.address1}<br></td>
-                        <td>${yelpSearch1.location.city}, </td>
-                        <td>${yelpSearch1.location.state} </td>
-                        <td>${yelpSearch1.location.zip_code}<br></td>
-                        <td>${yelpSearch1.location.country}<br></td>
-                        <td>Rating: ${yelpSearch1.rating}<br></td>
-                        <td>${yelpSearch1.phone}<br></td>
-                        <td><img src="${yelpSearch1.image_url}"></td><br>
-                    </tr>
-                    
-                    <tr>
-                    	<td><h5>Your Attraction</h5></td>
-                        <td>${yelpSearch2.name}<br></td>
-                        <td>${yelpSearch2.location.address1}<br></td>
-                        <td>${yelpSearch2.location.city}, </td>
-                        <td>${yelpSearch2.location.state} </td>
-                        <td>${yelpSearch2.location.zip_code}<br></td>
-                        <td>${yelpSearch2.location.country}<br></td>
-                        <td>Rating: ${yelpSearch2.rating}<br></td>
-                        <td>${yelpSearch2.phone}<br></td>
-                        <td><img src="${yelpSearch2.image_url}"></td><br>
-
-					</tr>
-                       	<td><h1> $${adjustedPrice}</h1></td>
-                       	
-                       	
-                       	<a href="mailto:${customerInfo.email}?subject=Your Tour Selection&body=Primary Booking Contact:%09${customerInfo.firstName} ${customerInfo.lastName}%0D
+<body id="app-body">
+	<img id="logo-md" src="img/logo.png">
+	<div class="container col-lg-12" id="">
+		<h1>Your Final Booking Information</h1>
+		<h3>Primary Booking Contact</h3>
+		<div id="eachHotel">
+		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
+			<thead class="thead">
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Phone</th>
+				<th>Email</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${customerInfo.firstName}</td>
+					<td>${customerInfo.lastName}<br></td>
+					<td>${customerInfo.phone}<br></td>
+					<td>${customerInfo.email}<br> <br></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container col-lg-12" id="">
+		<h3>Your Tour</h3>
+		<div id="eachHotel">
+		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
+			<thead class="thead">
+				<th>Tour Name</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td><h1>${tourOption.name}</h1></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container col-lg-12" id="">
+		<h3>Flight Information</h3>
+		<div id="eachHotel">
+		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
+			<thead class="thead">
+				<th>Your Flight</th>
+				<th>Leaving</th>
+				<th>Airline</th>
+				<th>Outbound Flight Number</th>
+				<th>Returning On</th>
+				<th>Airline</th>
+				<th>Inbound Flight Number</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>From Detroit (DTW) to ${tourOption.destinationAirport}</td>
+					<td>Leaving on ${tourOption.departureDate}</td>
+					<td>${tourOption.airline}</td> 
+					<td>${tourOption.outboundFlightNum}</td>   
+					<td>Returning on ${tourOption.returnDate}</td>
+					<td>${tourOption.airline}</td>
+					<td>${tourOption.inboundFlightNum}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container col-lg-12" id="">
+		<h3>Your Hotel</h3>
+		<div id="eachHotel">
+		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
+			<thead class="thead">
+				<th>Hotel Name</th>
+				<th>Address</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Zip Code</th>
+				<th>Country</th>
+				<th>rating</th>
+				<th>Phone Number</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${yelpSearch1.name}</td>
+					<td>${yelpSearch1.location.address1}</td>
+					<td>${yelpSearch1.location.city}, </td>
+					<td>${yelpSearch1.location.state} </td>
+					<td>${yelpSearch1.location.zip_code}</td>
+					<td>${yelpSearch1.location.country}</td>
+					<td>Rating: ${yelpSearch1.rating}</td>
+					<td>${yelpSearch1.phone}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container col-lg-12" id="">
+		<h3>Your Attraction</h3>
+		<div id="eachHotel">
+		<table class="table table-hover" style="background-color: #b0e0e6; border-color: #4cae4;">
+			<thead class="thead">
+				<th>Attraction Name</th>
+				<th>Address</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Zip Code</th>
+				<th>Country</th>
+				<th>Rating</th>
+				<th>Image</th>
+			</thead>
+			<tbody>
+				<tr>
+					<td>${yelpSearch2.name}</td>
+					<td>${yelpSearch2.location.address1}</td>
+					<td>${yelpSearch2.location.city}, </td>
+					<td>${yelpSearch2.location.state} </td>
+					<td>${yelpSearch2.location.zip_code}</td>
+					<td>${yelpSearch2.location.country}</td>
+					<td>Rating: ${yelpSearch2.rating}</td>
+					<td>${yelpSearch2.phone}</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+	</div>
+	<div class="container col-lg-12">
+		<div class="row">
+			<div class="polaroid col-lg-4">
+			  	<img src="${yelpSearch1.image_url}" alt="${yelpSearch1.name}" style="width:470px; height:350px;">
+			  	<div class="polaroid-container">
+			  	<h2 style="font-style: italic;">${yelpSearch1.name}</h2>
+			  	</div>
+			</div>
+			<div class="col-lg-4"></div>
+			<div class="polaroid col-lg-4">
+			  	<img src="${yelpSearch2.image_url}" alt="${yelpSearch2.name}" style="width:470px; height:350px;">
+			  	<div class="polaroid-container">
+			  	<h2 style="font-style: italic;">${yelpSearch2.name}</h2>
+			  	</div>
+			</div>
+		</div>
+	</div>
+	<div class="">
+		<h1>Final Price: $${adjustedPrice}</h1> 
+		<form action="vacation-booking-confirmation">
+		<a href="mailto:${customerInfo.email}?subject=Your Tour Selection&body=Primary Booking Contact:%09${customerInfo.firstName} ${customerInfo.lastName}%0D
                        	${customerInfo.phone}%0D
                        	${customerInfo.email}%0D%0D
                        	
@@ -104,13 +199,10 @@
                         Enjoy your trip!
                        	
                        	
-                       	"class="btn btn-primary">Email Me My Trip</a>	
-       					<input type="submit" name="returnHome" value="Back to the Beginning"><br>
-
-
-                      	</form>
-                    </div>
-    </div>
-
+                       	"
+					class="btn btn-success">Email Me My Trip</a> 
+					<input class="btn btn-primary" type="submit" name="returnHome" value="Back to the Beginning"><br>
+		</form>
+	</div>
 </body>
 </html>

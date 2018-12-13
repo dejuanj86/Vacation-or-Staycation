@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Natural or Man-Made - Vacation or Staycation</title>
 	<!-- css -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -13,7 +13,7 @@
 	<link href="/css/app-style.css" rel="stylesheet" media="screen">
 </head>
 <body id=app-body>
-	<h1>Natural or Man-Made?</h1>
+	<h1>Natural or Man-Made Adventure?</h1>
 	<div class="container">
 		<form action="natural-or-man-made">
 			<div class="row">

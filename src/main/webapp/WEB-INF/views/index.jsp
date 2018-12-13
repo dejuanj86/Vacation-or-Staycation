@@ -3,6 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<!-- 
+	Developed For the 2018 GrandCircus October TechHire Java Final Project 
+	By Carl Jones III
+	Cristian James
+	DeJuan Johnson
+	All rights reserved
+-->
   	<title>Home - Vacation or Staycation</title>
   	<meta charset="utf-8" />
   	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -13,7 +20,6 @@
   	<link href="/color/default.css" rel="stylesheet" media="screen">
   	<link href="/css/app-style.css" rel="stylesheet" media="screen">
 </head>
-
 <body>
   <!-- Navigation -->
   <nav class="navbar navbar-default" role="navigation">
@@ -45,8 +51,9 @@
 
   <!-- App area -->
   <section id="app-console" class="home-section bg-gray">
-	    <h1>Lets get lost!</h1>
-	    <h3>Vacation or Staycation?</h3>
+	   <!--  <h1>Lets get lost!</h1>
+	    <h3>Vacation or Staycation?</h3> -->
+	    <img id="logo-md" src="img/logo.png">
 		<form action="vacation-or-staycation">
 			<div class="container">
 				<div class="row">
@@ -63,7 +70,6 @@
 		</form>
     
   </section>
-
   <!-- Parallax 2 -->
   <section id="parallax2" class="home-section parallax" data-stellar-background-ratio="0.5">
     <div class="container">
@@ -79,7 +85,6 @@
       </div>
     </div>
   </section>
-
   <!-- Team -->
   <section id="team" class="home-section bg-white">
     <div class="container">
@@ -93,7 +98,6 @@
           </div>
         </div>
       </div>
-      
       <div class="row">
           <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
             <div class="box-team wow bounceInUp" data-wow-delay="0.1s">
@@ -134,7 +138,6 @@
       </div>
     </div>
   </section>
-
   <!-- About App -->
   <section id="services" class="home-section bg-gray">
     <div class="container">
@@ -156,7 +159,6 @@
       </div>
     </div>
   </section>
-
   <!-- Bottom widget -->
   <section id="bottom-widget" class="home-section bg-white">
   <div class="container">
@@ -244,7 +246,6 @@
               Licensing information: https://bootstrapmade.com/license/
               Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Alstar
             -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
           </div>
         </div>
       </div>

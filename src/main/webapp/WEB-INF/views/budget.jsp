@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>Budget - Vacation or Staycation</title>
 	<!-- css -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800" rel="stylesheet" media="screen">
 	<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
